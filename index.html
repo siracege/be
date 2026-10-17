@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sana Bir Mektubum Var 💌</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  font-family: Georgia, serif;
+  color: #8b3458;
+  background: linear-gradient(145deg, #ffe5ee, #fff5f7, #fbd1e1);
+  padding: 24px;
+}
+
+main {
+  text-align: center;
+  width: 100%;
+  max-width: 430px;
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  font-size: clamp(27px, 7vw, 36px);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.envelope {
+  position: relative;
+  width: min(280px, 80vw);
+  height: 180px;
+  margin: 0 auto 30px;
+  cursor: pointer;
+  perspective: 900px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.env-body {
+  position: absolute;
+  inset: 0;
+  background: #f7a8c2;
+  border-radius: 8px;
+  box-shadow: 0 14px 28px #b8587930;
+}
+
+.env-body::before,
+.env-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+.env-body::before {
+  background: #ed8eaf;
+  clip-path: polygon(0 0, 50% 65%, 100% 0);
+}
+
+.env-body::after {
+  background: #f8bbcf;
+  clip-path: polygon(0 100%, 0 0, 50% 57%, 100% 0, 100% 100%);
+}
+
+.flap {
+  position: absolute;
+  inset: 0;
+  background: #f4a0bb;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  transition: transform .7s ease, z-index .7s;
+  z-index: 4;
+}
+
+.letter {
+  position: absolute;
+  left: 7%;
+  width: 86%;
+  height: 150px;
+  bottom: 8px;
+  background: #fffaf8;
+  border-radius: 8px;
+  padding: 20px 10px;
+  font-size: 17px;
+  transition: transform .8s ease;
+  z-index: 2;
+}
+
+.seal {
+  position: absolute;
+  z-index: 5;
+  top: 62px;
+  left: calc(50% - 23px);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #d94e7d;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  transition: opacity .3s;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope.open .letter {
+  transform: translateY(-115px);
+  transition-delay: .35s;
+}
+
+.envelope.open .seal { opacity: 0; }
+
+.hint {
+  font-size: 15px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .55; }
+}
+
+#message {
+  display: none;
+  background: #ffffffd9;
+  border: 1px solid #f5c5d6;
+  border-radius: 22px;
+  padding: 25px 22px;
+  margin-top: 24px;
+  box-shadow: 0 10px 35px #b8587918;
+  line-height: 1.85;
+  animation: appear .8s ease both;
+}
+
+#message.show { display: block; }
+
+#message h2 { color: #c74675; }
+
+.signature {
+  font-size: 21px;
+  color: #c74675;
+}
+
+button {
+  border: 0;
+  border-radius: 30px;
+  padding: 13px 22px;
+  margin-top: 12px;
+  background: #d94e7d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  opacity: .65;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>Biricik sevgilim 💗</h1>
+  <p class="subtitle">Sana söylemek istediğim küçük bir şey var...</p>
+
+  <div class="envelope" id="envelope"
+       role="button" tabindex="0"
+       aria-label="Mektubu aç"
+       aria-expanded="false">
+    <div class="env-body"></div>
+    <div class="letter">Sana, kalbimin en güzel yerine... 💌</div>
+    <div class="flap"></div>
+    <div class="seal">♥</div>
+  </div>
+
+  <p class="hint" id="hint">💌 Mektubunu açmak için zarfa dokun 💌</p>
+
+  <section id="message" aria-live="polite">
+    <h2>Sana, sevgilim... ❤️</h2>
+
+    <p>
+      Belki bu sadece küçük bir internet sayfası,
+      ama içinde sana ait kocaman bir sevgi var.
+    </p>
+
+    <p>
+      Hayatıma kattığın güzellikler, yüzümde
+      oluşturduğun gülümsemeler ve seninle
+      paylaştığım anlar benim için çok değerli.
+    </p>
+
+    <p>
+      Her gün sana yeniden gülümsemek,
+      birlikte güzel anılar biriktirmek
+      ve kalbimdeki yerini sana hatırlatmak istiyorum.
+    </p>
+
+    <p>
+      İyi ki varsın, iyi ki hayatımdasın.
+      Bu küçük sürpriz de sana olan sevgimin
+      minicik bir hatırası olsun. 💗
+    </p>
+
+    <p class="signature">
+      Seni çok seviyorum. 💋<br>
+      ❤️ Sonsuz sevgimle ❤️
+    </p>
+
+    <button onclick="moreLove()">Bir kez daha dokun 💕</button>
+    <p id="extra" hidden>
+      Bu mektubun en güzel kısmı sensin. İyi ki sen! 🥹💖
+    </p>
+  </section>
+</main>
+
+<script>
+const envelope = document.getElementById("envelope");
+const message = document.getElementById("message");
+const hint = document.getElementById("hint");
+
+function openLetter() {
+  if (envelope.classList.contains("open")) return;
+
+  envelope.classList.add("open");
+  envelope.setAttribute("aria-expanded", "true");
+  hint.textContent = "Senin için, kalbimden bir mektup... 💗";
+
+  setTimeout(() => {
+    message.classList.add("show");
+    hint.textContent = "Sana kocaman sevgiler... ❤️";
+  }, 900);
+}
+
+envelope.addEventListener("click", openLetter);
+
+envelope.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openLetter();
+  }
+});
+
+function moreLove() {
+  const extra = document.getElementById("extra");
+  extra.hidden = false;
+  extra.animate(
+    [{opacity: 0, transform: "translateY(8px)"},
+     {opacity: 1, transform: "translateY(0)"}],
+    {duration: 500}
+  );
+  burstHearts(12);
+}
+
+function burstHearts(count) {
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.textContent = ["💗", "💕", "💖", "❤️"][i % 4];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (16 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7500);
+  }
+}
+
+setInterval(() => burstHearts(1), 900);
+</script>
+</body>
+</html>
